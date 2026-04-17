@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+    <html lang="en-GB">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>mnourish</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a7c59">
+    </head>
+    <body>
+        <div id="app">
+
+            <!-- ===================== -->
+            <!-- SCREEN: WELCOME/AUTH  -->
+            <!-- ===================== -->
+            <section id="screen-welcome" class="view hidden">
+                <div class="welcome-hero">
+                    <div class="welcome-logo">🌿</div>
+                    <h1>mnourish</h1>
+                    <p class="welcome-tagline">Nourish your body and your mind, in tune with your cycle.</p>
+                </div>
+                <div class="card">
+                    <div class="header-area">
+                        <h2>Create Your Profile</h2>
+                        <p class="subtitle">Everything personalised just for you.</p>
+                    </div>
+                    <label>Your Name</label>
+                    <input type="text" id="input-name" placeholder="e.g. Marmalade">
+                    <label>Age</label>
+                    <input type="number" id="input-age" placeholder="Years" min="13" max="60">
+                    <label>Height</label>
+                    <div class="split-input">
+                        <input type="number" id="input-ft" placeholder="ft" min="3" max="7">
+                        <input type="number" id="input-in" placeholder="in" min="0" max="11">
+                    </div>
+                    <label>Weight</label>
+                    <div class="split-input">
+                        <input type="number" id="input-st" placeholder="st" min="5" max="30">
+                        <input type="number" id="input-lb" placeholder="lb" min="0" max="13">
+                    </div>
+                    <button class="btn-primary" onclick="ui.saveProfile()">Create My Plan</button>
+                </div>
+            </section>
+
+            <!-- ===================== -->
+            <!-- SCREEN: DASHBOARD     -->
+            <!-- ===================== -->
+            <section id="screen-dashboard" class="view hidden">
+                <div class="dash-header">
+                    <div>
+                        <p class="greeting-sub" id="dash-greeting">Good day,</p>
+                        <h1 id="dash-name">Loading...</h1>
+                    </div>
+                    <button class="icon-btn" onclick="ui.showScreen('settings')" aria-label="Settings">⚙️</button>
+                </div>
+
+                <!-- Cycle Summary Card -->
+                <div class="card phase-card" id="dash-phase-card">
+                    <div class="phase-card-inner">
+                        <div class="cycle-circle">
+                            <span class="day-label">Day</span>
+                            <span id="dash-day-num">--</span>
+                        </div>
+
+                        <div class="phase-info">
+                            <span class="phase-badge" id="dash-phase-badge">–</span>
+                            <p id="dash-phase-advice">Set your cycle start date to begin.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cycle Date Input -->
+                <div id="cycle-date-card" class="card">
+                    <div id="setup-section">
+                        <h3>📅 Cycle Start Date</h3>
+                        <p class="card-hint">When did your current cycle start?</p>
+                        <input type="date" id="cycle-start-date" onchange="ui.handleDateChange()">
+                    </div>
+
+                    <div id="active-cycle-controls" class="hidden">
+                        <button class="btn-secondary" onclick="ui.showDateSetup()">Update / Reset Cycle</button>
+                    </div>
+                </div>
+
+                <!-- Nutritional Focus Card -->
+                <div class="card advice-card">
+                    <div class="card-header-row">
+                        <h3>💡 Nutritional Focus</h3>
+                    </div>
+                    
+                    <div id="display-calories"></div>
+
+                    <div class="hormone-status-container">
+                        <div class="hormone-tag" id="hormone-responsible"></div>
+                    </div>
+                    
+                    <p id="display-advice">Start your cycle to see personalised advice.</p>
+                    <ul id="display-tips" class="tips-list"></ul>
+                    <button id="refresh-tips" class="refresh-btn" title="New tips">↻ See More Tips</button>
+                </div>
+
+                <!-- Mood Card -->
+                <div class="card mood-card">
+                    <h3>How are you feeling?</h3>
+                    <div class="mood-selector">
+                        <button id="btn-Happy" onclick="ui.checkMood('Happy')" aria-label="Happy">😊</button>
+                        <button id="btn-Sad" onclick="ui.checkMood('Sad')" aria-label="Sad">😔</button>
+                        <button id="btn-Anxious" onclick="ui.checkMood('Anxious')" aria-label="Anxious">😟</button>
+                        <button id="btn-Tired" onclick="ui.checkMood('Tired')" aria-label="Tired">😴</button>
+                        <button id="btn-Irritable" onclick="ui.checkMood('Irritable')" aria-label="Irritable">😠</button>
+                    </div>
+
+                    <div id="mood-insight" class="hidden">
+                        <p id="mood-analysis"></p>
+                    </div>
+                </div>
+
+                <!-- Nav to Meal Plans -->
+                <button class="btn-nav-card" onclick="ui.showScreen('mealplans')">
+                    <span class="nav-card-icon">🥗</span>
+                    <div>
+                        <strong>Meal Plans</strong>
+                        <p>Phase-specific recipes &amp; your week ahead</p>
+                    </div>
+                    <span class="nav-card-arrow">›</span>
+                </button>
+            </section>
+
+            <!-- ===================== -->
+            <!-- SCREEN: MEAL PLANS    -->
+            <!-- ===================== -->
+            <section id="screen-mealplans" class="view hidden">
+                <div class="screen-nav-header">
+                    <button class="back-btn" onclick="ui.showScreen('dashboard')">‹ Back</button>
+                    <h2>Meal Plans</h2>
+                    <span></span>
+                </div>
+
+                <!-- Current Phase Meals -->
+                <div class="card">
+                    <div class="meal-phase-header">
+                        <button class="day-nav-btn day-nav-prev" onclick="ui.stepMealDay(-1)" aria-label="Previous day"></button>
+                        <div class="meal-day-centre">
+                            <h3 id="meal-day-label">Today</h3>
+                            <span class="phase-badge" id="meal-phase-badge">–</span>
+                        </div>
+                        <button class="day-nav-btn day-nav-next" onclick="ui.stepMealDay(1)" aria-label="Next day"></button>
+                    </div>
+                    <p class="card-hint" id="meal-phase-desc">Set your cycle date on the dashboard to unlock personalised meal plans.</p>
+                </div>
+
+                <!-- Meal Category Tabs -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="breakfast" onclick="ui.switchMealTab(this)">Breakfast</button>
+                    <button class="tab-btn" data-tab="lunch" onclick="ui.switchMealTab(this)">Lunch</button>
+                    <button class="tab-btn" data-tab="dinner" onclick="ui.switchMealTab(this)">Dinner</button>
+                    <button class="tab-btn" data-tab="snacks" onclick="ui.switchMealTab(this)">Snacks</button>
+                </div>
+
+                <div id="meal-content-area">
+                    <!-- Rendered dynamically by JS -->
+                </div>
+
+                <!-- Week Ahead Planner -->
+                <div class="card">
+                    <h3>📆 Week Ahead</h3>
+                    <p class="card-hint">Plan your shopping around your upcoming phases.</p>
+                    <div id="week-ahead-list" class="week-ahead-list">
+                        <!-- Rendered dynamically by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📖 Learn About</h3>
+                    <p class="card-hint">Explore how nutrition supports each phase.</p>
+                    <div id="learn-phases-carousel" class="phase-carousel">
+                        </div>
+                </div>
+            </section>
+
+            <!-- ===================== -->
+            <!-- SCREEN: SETTINGS      -->
+            <!-- ===================== -->
+            <section id="screen-settings" class="view hidden">
+            <div class="screen-nav-header">
+                <button class="back-btn" onclick="ui.showScreen('dashboard')">‹ Back</button>
+                <h2>Settings</h2>
+                <span></span>
+            </div>
+
+            <div class="card">
+                <div class="header-area">
+                    <h3>Mood History</h3>
+                    <p class="card-hint">Your emotional patterns over the last 4 weeks.</p>
+                </div>
+                
+                <div id="mood-calendar-grid" class="mood-calendar-grid">
+                    </div>
+
+                <div class="mood-legend">
+                    <div class="legend-item"><div class="mood-dot happy"></div> Happy</div>
+                    <div class="legend-item"><div class="mood-dot sad"></div> Sad</div>
+                    <div class="legend-item"><div class="mood-dot anxious"></div> Anxious</div>
+                    <div class="legend-item"><div class="mood-dot tired"></div> Tired</div>
+                    <div class="legend-item"><div class="mood-dot irritable"></div> Irritable</div>
+                </div>
+            </div>
+
+            <div class="settings-tile" data-tile="edit-profile">
+                <div class="tile-header" onclick="ui.toggleTile(this)">
+                    <h3>Edit Profile</h3>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="tile-content">
+                    <p class="card-hint">Update your personal details below.</p>
+                    <label>Your Name</label>
+                    <input type="text" id="settings-name" placeholder="e.g. Marmalade">
+                    <label>Age</label>
+                    <input type="number" id="settings-age" placeholder="Years">
+                    <label>Height</label>
+                    <div class="split-input">
+                        <input type="number" id="settings-ft" placeholder="ft">
+                        <input type="number" id="settings-in" placeholder="in">
+                    </div>
+                    <label>Weight</label>
+                    <div class="split-input">
+                        <input type="number" id="settings-st" placeholder="st">
+                        <input type="number" id="settings-lb" placeholder="lb">
+                    </div>
+                    <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="ui.saveSettings()">Save Changes</button>
+                </div>
+            </div>
+
+            <div class="settings-tile" data-tile="cycle-management">
+                <div class="tile-header" onclick="ui.toggleTile(this)">
+                    <h3>Cycle Management</h3>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="tile-content">
+                    <p class="card-hint">Need to adjust your current cycle start date?</p>
+                    <div id="settings-date-input-area">
+                        <button class="btn-secondary" onclick="ui.toggleSettingsDate()">Change Start Date</button>
+                        <div id="settings-date-picker" class="hidden" style="margin-top: 12px;">
+                            <label for="settings-cycle-start">New Start Date</label>
+                            <input type="date" id="settings-cycle-start">
+                            <div class="button-group">
+                                <button class="btn-primary" onclick="ui.confirmSettingsDate()">Confirm New Date</button>
+                                <button class="btn-secondary" onclick="ui.toggleSettingsDate()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-tile danger-tile" data-tile="reset-app">
+                <div class="tile-header" onclick="ui.toggleTile(this)">
+                    <h3>Reset App</h3>
+                    <span class="chevron">▾</span>
+                </div>
+                <div class="tile-content">
+                    <p class="card-hint">This will delete all your data and cannot be undone.</p>
+                    <div id="reset-confirm-area">
+                        <button class="btn-danger" onclick="ui.showResetConfirm()">Reset Everything</button>
+                    </div>
+                    <div id="reset-confirm-prompt" class="hidden">
+                        <p class="card-hint" style="color:var(--danger);font-weight:600;">Are you sure? This cannot be undone.</p>
+                        <div class="button-group">
+                            <button class="btn-danger" onclick="ui.confirmReset()">Yes, Delete Everything</button>
+                            <button class="btn-secondary" onclick="ui.cancelReset()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div><!-- /#app -->
+
+        <script src="data.js"></script>
+
+        <script src="app.js"></script>
+
+        <script>
+        if ('serviceWorker' in navigator)
+            navigator.serviceWorker.register('/sw.js');
+        </script>
+    </body>
+    </html>

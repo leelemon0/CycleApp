@@ -1,0 +1,1144 @@
+/* =============================================
+   CYCLE NOURISH — STYLESHEET
+   Colour palette: Sage Green (#8fa189) + Accent (#d4a373)
+   ============================================= */
+
+:root {
+    --primary:       #8fa189; /* Sage Green */
+    --primary-dark:  #6e8068;
+    --primary-light: #c2d0bf;
+    --accent:        #d4a373;
+    --accent-light:  #f0dcc4;
+    --bg:            #fdfaf5;
+    --card-bg:       #ffffff;
+    --text:          #3d403a;
+    --text-muted:    #8a8f85;
+    --input-bg:      #f5f5f3;
+    --border:        #ece9e3;
+    --danger:        #c0666a;
+    --danger-light:  #f9eaea;
+
+    /* Phase colours */
+    --phase-menstrual:  #c0666a;
+    --phase-follicular: #8fa189;
+    --phase-ovulatory:  #d4a373;
+    --phase-luteal:     #7c9eb8;
+}
+
+/* ───────────────────────────────────────
+   1. RESET & BASE
+─────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 0 40px 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#app {
+    width: 100%;
+    max-width: 460px;
+    padding: 0 16px;
+}
+
+/* ───────────────────────────────────────
+   2. VIEWS & ANIMATION
+─────────────────────────────────────── */
+.view {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.4s ease;
+    padding-top: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none !important; }
+
+#active-cycle-controls .btn-secondary {
+    padding: 10px;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+/* ───────────────────────────────────────
+   3. TYPOGRAPHY
+─────────────────────────────────────── */
+h1 {
+    font-size: 1.9rem;
+    margin: 0 0 4px 0;
+    color: var(--primary-dark);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin: 0;
+    color: var(--text);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--text);
+    font-weight: 700;
+}
+
+p { margin: 0; }
+
+.subtitle, .card-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--primary-dark);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* ───────────────────────────────────────
+   4. CARDS
+─────────────────────────────────────── */
+.card {
+    background: var(--card-bg);
+    padding: 22px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.header-area {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ───────────────────────────────────────
+   5. INPUTS
+─────────────────────────────────────── */
+.split-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--input-bg);
+    outline: none;
+    font-size: 1rem;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input:focus {
+    border-color: var(--primary);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(143, 161, 137, 0.12);
+}
+
+/* ───────────────────────────────────────
+   6. BUTTONS
+─────────────────────────────────────── */
+button {
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.15s, opacity 0.15s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+
+.btn-secondary {
+    background: var(--card-bg);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-text {
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 8px;
+}
+
+.btn-danger {
+    background: var(--danger-light);
+    color: var(--danger);
+    width: 100%;
+    font-weight: 700;
+}
+
+.btn-danger:active { transform: scale(0.97); }
+
+.icon-btn {
+    background: var(--input-bg);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.mood-selector button {
+    font-size: 1.5rem;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    filter: grayscale(50%); /* Make unselected ones duller */
+    opacity: 0.6;
+}
+
+/* The "Selected" state */
+.mood-selector button.active {
+    filter: grayscale(0%);
+    opacity: 1;
+    background: #fff;
+    border-color: #ff8a80;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.mood-selector button:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Mood Calendar Grid */
+.mood-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.mood-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.7rem;
+    background: var(--input-bg);
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.mood-date-num {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.mood-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-bottom: 4px;
+}
+
+/* Specific Mood Colours */
+.mood-dot.happy     { background: #ffd700; box-shadow: 0 0 5px rgba(255, 215, 0, 0.4); }
+.mood-dot.sad       { background: #64b5f6; box-shadow: 0 0 5px rgba(100, 181, 246, 0.4); }
+.mood-dot.anxious   { background: #ffb74d; box-shadow: 0 0 5px rgba(255, 183, 77, 0.4); }
+.mood-dot.tired     { background: #9575cd; box-shadow: 0 0 5px rgba(149, 117, 205, 0.4); }
+.mood-dot.irritable { background: #e57373; box-shadow: 0 0 5px rgba(229, 115, 115, 0.4); }
+.mood-dot.empty     { background: var(--border); opacity: 0.3; }
+
+/* Legend Styling */
+.mood-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* ───────────────────────────────────────
+   7. WELCOME SCREEN
+─────────────────────────────────────── */
+.welcome-hero {
+    text-align: center;
+    padding: 40px 0 16px;
+}
+
+.welcome-logo {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(143, 161, 137, 0.3));
+}
+
+.welcome-tagline {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 6px;
+}
+
+/* ───────────────────────────────────────
+   8. DASHBOARD
+─────────────────────────────────────── */
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 4px 4px;
+}
+
+.greeting-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+/* Phase Card */
+.phase-card {
+    transition: background 0.6s ease-in-out, transform 0.4s ease;
+    background: var(--primary);
+    padding: 24px;
+    border-radius: 20px;
+    color: white;
+}
+
+/* Phase-specific background morphs */
+.phase-card.menstrual  { background: var(--phase-menstrual); }
+.phase-card.follicular { background: var(--phase-follicular); }
+.phase-card.ovulatory  { background: var(--phase-ovulatory); }
+.phase-card.luteal     { background: var(--phase-luteal); }
+
+.phase-card h3, .phase-card p { color: white; margin: 0; }
+
+.phase-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cycle-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1.1;
+    backdrop-filter: blur(4px); /* Adds a premium frosted glass effect */
+}
+
+.cycle-circle .day-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.cycle-circle .day-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.day-label {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: -2px;
+}
+
+.cycle-circle span:last-child {
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.phase-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.phase-info p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* Phase badge */
+.phase-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    width: fit-content;
+}
+
+/* Phase badge — coloured variants for non-green-bg contexts */
+.phase-badge.menstrual  { background: var(--phase-menstrual);  color: white; }
+.phase-badge.follicular { background: var(--phase-follicular); color: white; }
+.phase-badge.ovulatory  { background: var(--phase-ovulatory);  color: white; }
+.phase-badge.luteal     { background: var(--phase-luteal);     color: white; }
+
+/* Card Header with Refresh Button */
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.refresh-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 4px 8px;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.refresh-btn:active {
+    transform: rotate(15deg);
+    opacity: 0.7;
+}
+
+/* Advice card list */
+#display-tips {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Base Tip Item Styling */
+.tip-item {
+    background: var(--card-bg);
+    padding: 14px;
+    border-radius: 12px;
+    border-left: 4px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+/* Category Specific Colours (Your Palette) */
+.tip-item.tip-nutrition { 
+    border-left-color: #e9c46a; 
+    background: #fffdf7; 
+}
+.tip-item.tip-exercise { 
+    border-left-color: #83c5be; 
+    background: #f6fafa; 
+}
+.tip-item.tip-wellness { 
+    border-left-color: #b5838d; 
+    background: #fdf8f8; 
+}
+.tip-item.tip-mindfulness { 
+    border-left-color: #9575cd; 
+    background: #f9f7ff; 
+}
+
+.tip-category {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    opacity: 0.8;
+}
+
+.tip-item p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.tip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+}
+
+.pin-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    filter: grayscale(1);
+    transition: filter 0.2s, transform 0.2s;
+}
+
+.tip-item.pinned {
+    border-left-width: 8px; /* Thicker border for pinned items */
+}
+
+.tip-item.pinned .pin-btn {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+.pin-btn:hover {
+    filter: grayscale(0);
+}
+
+/* Mood card */
+.mood-selector {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.mood-selector button {
+    background: var(--input-bg);
+    font-size: 1.4rem;
+    padding: 0;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.mood-selector button:active {
+    transform: scale(0.9);
+    background: var(--accent-light);
+}
+
+#mood-insight {
+    margin-top: 8px;
+    padding: 14px;
+    background: var(--bg);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#mood-analysis {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.hormone-status-container {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+    width: 100%;
+}
+
+/* Subtle pulse if in Luteal phase to draw attention to the boost */
+.luteal .hormone-tag {
+    border-color: var(--accent-luteal);
+    color: var(--accent-luteal);
+}
+
+/* Nav card button */
+.btn-nav-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 18px 22px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    text-align: left;
+    color: var(--text);
+    font-weight: normal;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-nav-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.btn-nav-card strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.btn-nav-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.nav-card-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.nav-card-arrow {
+    margin-left: auto;
+    font-size: 1.6rem;
+    color: var(--primary);
+    font-weight: 300;
+}
+
+.cal-box {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 0;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cal-box strong {
+    display: block;
+    font-size: 1.5rem;
+    color: #2d3436;
+    line-height: 1.1;
+}
+
+.cal-box span {
+    font-size: 0.75rem;
+    color: #636e72;
+    line-height: 1;
+}
+
+.hormone-status-container {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.hormone-tag {
+    display: inline-block;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: fit-content;
+    transition: background 0.3s ease;
+}
+
+/* Phase-specific background colours - using CSS variables */
+.hormone-tag.menstrual  { background: var(--phase-menstrual); }
+.hormone-tag.follicular { background: var(--phase-follicular); }
+.hormone-tag.ovulatory  { background: var(--phase-ovulatory); }
+.hormone-tag.luteal     { background: var(--phase-luteal); }
+
+#display-advice {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+/* Highlight the calorie increase in the Luteal phase */
+.cal-box.cal-boost {
+    background: #fff5f5;
+    border-color: #feb2b2;
+}
+
+.cal-box.cal-boost strong {
+    color: #c53030;
+}
+
+/* ───────────────────────────────────────
+   9. SCREEN NAV HEADER (Meal Plans, Settings)
+─────────────────────────────────────── */
+.screen-nav-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    align-items: center;
+    padding: 16px 4px 4px;
+    text-align: center;
+}
+
+.screen-nav-header h2 {
+    grid-column: 2;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+.back-btn {
+    grid-column: 1;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 4px 8px 4px 0;
+    cursor: pointer;
+}
+
+/* Expansion Tile Styling */
+.settings-tile {
+    background: var(--card-bg);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.tile-header {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tile-header h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.chevron {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+}
+
+.tile-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+/* Open State */
+.settings-tile.active .tile-content {
+    max-height: 1000px;
+    padding-bottom: 20px;
+}
+
+.settings-tile.active .chevron {
+    transform: rotate(180deg);
+}
+
+.danger-tile { border-color: var(--danger-light); }
+
+/* ───────────────────────────────────────
+   10. MEAL PLANS
+─────────────────────────────────────── */
+.meal-phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.meal-day-centre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.day-nav-btn::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-top: 2.5px solid var(--primary-dark);
+    border-right: 2.5px solid var(--primary-dark);
+}
+
+.day-nav-prev::before { transform: rotate(-135deg) translate(-1px, 1px); }
+.day-nav-next::before { transform: rotate(45deg) translate(-1px, 1px); }
+
+.day-nav-btn {
+    background: var(--input-bg);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.day-nav-btn:active { background: var(--primary-light); }
+.day-nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+/* Tab Bar */
+.tab-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    gap: 4px;
+}
+
+.tab-btn {
+    padding: 10px 4px;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Meal Cards */
+.meal-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    animation: fadeIn 0.3s ease;
+}
+
+.meal-card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.meal-card-reason {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.meal-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.meal-tag {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    font-weight: 600;
+}
+
+#meal-content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Phase Carousel Styling */
+.phase-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 4px 0 12px 0;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.phase-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-item .phase-badge {
+    align-self: center;
+}
+
+.carousel-item {
+    flex: 0 0 90%; /* Shows most of one card and a peek of the next */
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 16px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease;
+}
+
+.carousel-item p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.carousel-item .subtitle {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* ───────────────────────────────────────
+   11. WEEK AHEAD
+─────────────────────────────────────── */
+.week-ahead-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.week-day-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: var(--bg);
+    transition: background 0.15s;
+}
+
+.week-day-row.today {
+    background: var(--primary-light);
+}
+
+.week-day-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 36px;
+}
+
+.week-day-row.today .week-day-label {
+    color: var(--primary-dark);
+}
+
+.week-phase-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.week-phase-dot.menstrual  { background: var(--phase-menstrual); }
+.week-phase-dot.follicular { background: var(--phase-follicular); }
+.week-phase-dot.ovulatory  { background: var(--phase-ovulatory); }
+.week-phase-dot.luteal     { background: var(--phase-luteal); }
+.week-phase-dot.unknown    { background: var(--border); }
+
+.week-phase-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+}
+
+.week-day-num {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ───────────────────────────────────────
+   12. SETTINGS / DANGER CARD
+─────────────────────────────────────── */
+.danger-card {
+    border: 1.5px solid #f0d5d5;
+}
+
+.danger-card h3 {
+    color: var(--danger);
+}
+
+/* ───────────────────────────────────────
+   13. CYCLE DATE CARD
+─────────────────────────────────────── */
+#cycle-date-card h3 {
+    color: var(--text);
+}
+
+/* Ensure the tile can expand to fit content */
+.settings-tile.active .tile-content {
+    height: auto;
+    max-height: none; 
+    overflow: visible;
+}
+
+/* ───────────────────────────────────────
+   MOOD CALENDAR & GRID
+─────────────────────────────────────── */
+#mood-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+    gap: 8px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mood-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    aspect-ratio: 1;
+    background: var(--input-bg);
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.mood-date-num {
+    font-size: 0.65rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.mood-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Specific Mood Colours */
+.mood-dot.happy     { background: #ffd700; box-shadow: 0 0 5px rgba(255, 215, 0, 0.4); }
+.mood-dot.sad       { background: #64b5f6; box-shadow: 0 0 5px rgba(100, 181, 246, 0.4); }
+.mood-dot.anxious   { background: #ffb74d; box-shadow: 0 0 5px rgba(255, 183, 77, 0.4); }
+.mood-dot.tired     { background: #9575cd; box-shadow: 0 0 5px rgba(149, 117, 205, 0.4); }
+.mood-dot.irritable { background: #e57373; box-shadow: 0 0 5px rgba(229, 115, 115, 0.4); }
+.mood-dot.empty     { background: var(--border); opacity: 0.3; }
+
+/* ───────────────────────────────────────
+   MOOD LEGEND (Centred & Smart Wrap)
+─────────────────────────────────────── */
+.mood-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex: 0 1 auto;
+    line-height: 1; /* Fixed from 3 to ensure vertical alignment */
+}
+
+.legend-item .mood-dot {
+    margin: 0; /* Prevents stray margins from affecting alignment */
+}
+
+/* Force 3/2 split when 5 items no longer fit on one row */
+@media (max-width: 360px) {
+    .legend-item {
+        /* 28% width ensures 3 fit (84% + gaps) but 4 cannot */
+        flex: 1 0 28%; 
+        min-width: 70px; 
+        max-width: 31%;
+    }
+}
