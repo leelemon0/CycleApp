@@ -7,7 +7,11 @@
 // ─────────────────────────────────────────────
  
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/CycleApp/sw.js');
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/CycleApp/sw.js')
+      .then(reg => console.log('SW Registered', reg))
+      .catch(err => console.error('SW Registration Failed', err));
+  });
 }
 
 const getGreeting = () => {
