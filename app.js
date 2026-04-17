@@ -6,6 +6,10 @@
 // 0. CONSTANTS & HELPERS
 // ─────────────────────────────────────────────
  
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/CycleApp/sw.js');
+}
+
 const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning,';
