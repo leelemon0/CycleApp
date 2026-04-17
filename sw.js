@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cycle-app-v2'; // Increment this when you change data.js
+const CACHE_NAME = 'mnourish-v2'; // Increment this when you change data.js
 const ASSETS = [
   './',
   'index.html',
