@@ -8,7 +8,8 @@
  
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/CycleApp/sw.js')
+    // No leading slash means "look in the current folder"
+    navigator.serviceWorker.register('sw.js')
       .then(reg => console.log('SW Registered', reg))
       .catch(err => console.error('SW Registration Failed', err));
   });
